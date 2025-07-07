@@ -11,6 +11,8 @@ This repository contains a minimal Chrome extension scaffold using Manifest V3. 
 
 ## Usage
 
-After loading, right-click on any page to see a "Survivor AI Action" entry in the context menu. The popup can be opened by clicking the extension icon.
-
-This skeleton does not include any actual functionality yet; use it as a starting point for development.
+After loading the extension, navigate to Instagram. Right-click on a post and
+choose **"Flag via Survivor AI"** from the context menu. The extension will
+extract basic details from the selected post (media URL, username, timestamp and
+link) and log them in the console. The popup can still be opened by clicking the
+extension icon.
