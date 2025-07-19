@@ -3,7 +3,7 @@
   "name": "Survivor AI Extension",
   "version": "0.1",
   "description": "Skeleton for Survivor AI Chrome extension",
-  "permissions": ["contextMenus", "activeTab", "storage"],
+  "permissions": ["contextMenus", "activeTab", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"

@@ -1,31 +1,17 @@
-// Background script for Survivor AI extension
+chrome.contextMenus.create({
+  id: "flagSurvivorAI",
+  title: "Flag via Survivor AI",
+  contexts: ["page", "image"]
+}, () => console.log("Context menu created"));
 
-// Create a context menu item that only appears on Instagram pages.
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: 'survivor-ai',
-    title: 'Flag via Survivor AI',
-    contexts: ['all'],
-    documentUrlPatterns: ['*://*.instagram.com/*']
-  });
-});
-
-// When the context menu item is clicked, ask the content script to
-// extract information about the Instagram post that was right-clicked.
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId !== 'survivor-ai' || !tab?.id) {
-    return;
-  }
-
-  chrome.tabs.sendMessage(
-    tab.id,
-    { action: 'extract-post' },
-    (response) => {
+  if (info.menuItemId === "flagSurvivorAI" && tab.url.includes("instagram.com")) {
+    chrome.tabs.sendMessage(tab.id, { action: "flagContent", url: tab.url }, (response) => {
       if (chrome.runtime.lastError) {
-        console.warn('Extraction failed:', chrome.runtime.lastError.message);
-      } else {
-        console.log('Post data:', response);
+        console.error("Send message failed:", chrome.runtime.lastError.message);
+      } else if (response) {
+        console.log("Content flagged, response:", response.status);
       }
-    }
-  );
+    });
+  }
 });
